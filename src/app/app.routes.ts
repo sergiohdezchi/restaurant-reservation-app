@@ -44,6 +44,17 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     loadComponent: () => import('./components/reservations/reservation-detail/reservation-detail.component').then(m => m.ReservationDetailComponent)
   },
+  // Redirección para manejar URLs antiguas que usaban 'reservations' (plural)
+  {
+    path: 'reservations/:id',
+    redirectTo: 'reservation/:id',
+    pathMatch: 'full'
+  },
+  {
+    path: 'reservation/:id/payment-success',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./components/reservations/reservation-detail/reservation-detail.component').then(m => m.ReservationDetailComponent)
+  },
   {
     path: 'profile',
     canActivate: [AuthGuard],

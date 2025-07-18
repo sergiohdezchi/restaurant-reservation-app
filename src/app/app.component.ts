@@ -6,6 +6,8 @@ import { filter } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
 import { User } from './models/interfaces';
 import { MATERIAL_MODULES } from './material.config';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -20,8 +22,16 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
+    // Register custom SVG icons
+    this.matIconRegistry.addSvgIcon(
+      'paypal',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/paypal.svg')
+    );
+  }
 
   ngOnInit(): void {
     this.authService.currentUser$.subscribe(user => {

@@ -17,6 +17,7 @@
               <mat-option value="CONFIRMED">Confirmada</mat-option>
               <mat-option value="COMPLETED">Completada</mat-option>
               <mat-option value="CANCELLED">Cancelada</mat-option>
+              <mat-option value="PAID">Pagada</mat-option>
             </mat-select>
             <mat-icon matSuffix>filter_list</mat-icon>
           </mat-form-field>
@@ -45,7 +46,7 @@
 
     <!-- Lista de reservas -->
     <div class="reservations-list" *ngIf="filteredReservations.length > 0; else noReservations">
-      <mat-card *ngFor="let reservation of filteredReservations" class="reservation-card hover-card">
+      <mat-card *ngFor="let reservation of filteredReservations" class="reservation-card hover-card" [routerLink]="['/reservation', reservation.id]">
         <mat-card-header>
           <div class="reservation-avatar">
             <mat-icon>restaurant</mat-icon>
@@ -53,8 +54,12 @@
           <mat-card-title>{{ reservation.restaurantName }}</mat-card-title>
           <mat-card-subtitle>
             <div class="reservation-date">
+              <mat-icon>event</mat-icon>
+              {{ reservation.reservationDate | date:'EEEE, d MMMM yyyy' }}
+            </div>
+            <div class="reservation-time">
               <mat-icon>schedule</mat-icon>
-              {{ reservation.reservationDate | date:'dd/MM/yyyy' }}
+              {{ reservation.reservationDate | date:'HH:mm' }} hrs
             </div>
           </mat-card-subtitle>
         </mat-card-header>
@@ -84,17 +89,26 @@
         </mat-card-content>
 
         <mat-card-actions>
-          <button mat-raised-button color="primary" [routerLink]="['/reservations', reservation.id]">
+          <button mat-raised-button color="primary" [routerLink]="['/reservation', reservation.id]" (click)="$event.stopPropagation()">
             <mat-icon>visibility</mat-icon>
             Ver Detalles
           </button>
 
           <button mat-stroked-button color="warn"
                   *ngIf="reservation.status === 'PENDING'"
-                  (click)="cancelReservation(reservation.id)"
+                  (click)="cancelReservation(reservation.id); $event.stopPropagation()"
                   [disabled]="isLoading">
             <mat-icon>cancel</mat-icon>
             Cancelar
+          </button>
+          
+          <button mat-stroked-button 
+                  color="accent"
+                  *ngIf="reservation.status !== 'PAID' && reservation.status !== 'CANCELLED'"
+                  [routerLink]="['/reservation', reservation.id]"
+                  (click)="$event.stopPropagation()">
+            <mat-icon>payment</mat-icon>
+            Pagar Ahora
           </button>
         </mat-card-actions>
       </mat-card>

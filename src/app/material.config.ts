@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
@@ -22,6 +22,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
+import { DomSanitizer } from '@angular/platform-browser';
 
 export const MATERIAL_MODULES = [
   MatToolbarModule,
@@ -51,6 +52,10 @@ export const MATERIAL_MODULES = [
 export function provideMaterial() {
   return [
     provideAnimations(),
-    importProvidersFrom(...MATERIAL_MODULES)
+    importProvidersFrom(...MATERIAL_MODULES),
+    {
+      provide: MatIconRegistry,
+      useClass: MatIconRegistry
+    }
   ];
 }

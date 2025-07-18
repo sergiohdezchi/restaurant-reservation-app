@@ -1,0 +1,337 @@
+.reservation-detail-container {
+  min-height: calc(100vh - 130px); /* Altura ajustada para header y footer */
+  background-color: #f5f2ed;
+  padding: 50px 0 60px 0;
+  display: block;
+  width: 100%;
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .back-link {
+    margin-bottom: 20px;
+
+    .back-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #6a3d2a;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: #d4af37;
+        transform: translateX(-3px);
+      }
+
+      .mat-icon {
+        font-size: 1.2rem;
+        height: 1.2rem;
+        width: 1.2rem;
+      }
+    }
+  }
+
+  .detail-header {
+    text-align: center;
+    margin-bottom: 40px;
+
+    .reservation-icon {
+      font-size: 3.5rem;
+      width: 3.5rem;
+      height: 3.5rem;
+      margin-bottom: 15px;
+      color: #d4af37;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-family: 'Cormorant Garamond', serif;
+      color: #6a3d2a;
+    }
+  }
+
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 0;
+    
+    p {
+      margin-top: 20px;
+      color: #6a3d2a;
+      font-size: 1.2rem;
+    }
+  }
+
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 0;
+    text-align: center;
+    
+    .mat-icon {
+      font-size: 3rem;
+      width: 3rem;
+      height: 3rem;
+      margin-bottom: 20px;
+    }
+    
+    h3 {
+      margin-bottom: 25px;
+      font-size: 1.5rem;
+      color: #6a3d2a;
+    }
+  }
+
+  .reservation-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(106, 61, 42, 0.1);
+    overflow: hidden;
+    margin-bottom: 30px;
+
+    .reservation-header {
+      background: #6a3d2a;
+      color: #f9f6f2;
+      padding: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .restaurant-name {
+        font-size: 1.6rem;
+        font-weight: 700;
+        font-family: 'Cormorant Garamond', serif;
+      }
+
+      .status-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-weight: 500;
+        font-size: 0.9rem;
+
+        .mat-icon {
+          font-size: 1rem;
+          width: 1rem;
+          height: 1rem;
+        }
+
+        &.status-pending {
+          background: rgba(212, 174, 71, 0.2);
+          color: #f9f6f2;
+        }
+
+        &.status-confirmed {
+          background: rgba(125, 140, 92, 0.2);
+          color: #f9f6f2;
+        }
+
+        &.status-completed {
+          background: rgba(104, 152, 104, 0.2);
+          color: #f9f6f2;
+        }
+
+        &.status-paid {
+          background: rgba(104, 152, 104, 0.2);
+          color: #f9f6f2;
+        }
+
+        &.status-cancelled {
+          background: rgba(209, 102, 102, 0.2);
+          color: #f9f6f2;
+        }
+      }
+    }
+
+    .reservation-body {
+      padding: 30px;
+      display: grid;
+      gap: 40px;
+
+      @media (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .reservation-main-details {
+        .detail-row {
+          margin-bottom: 20px;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+          
+          .detail-item {
+            background: #f9f6f2;
+            border-radius: 8px;
+            padding: 20px;
+            
+            .detail-label {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              margin-bottom: 12px;
+              font-weight: 600;
+              color: #6a3d2a;
+              
+              .mat-icon {
+                color: #d4af37;
+              }
+            }
+            
+            .detail-value {
+              font-size: 1.1rem;
+              padding-left: 34px;
+              color: #2c2823;
+            }
+          }
+        }
+      }
+
+      .payment-section {
+        background: #f9f6f2;
+        border-radius: 8px;
+        padding: 25px;
+        
+        h3 {
+          font-family: 'Cormorant Garamond', serif;
+          color: #6a3d2a;
+          margin-bottom: 20px;
+          font-size: 1.4rem;
+          font-weight: 600;
+        }
+        
+        .payment-details {
+          margin-bottom: 25px;
+          
+          .payment-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            color: #2c2823;
+            
+            &.total {
+              font-weight: 700;
+              font-size: 1.2rem;
+              color: #6a3d2a;
+              padding-top: 15px;
+            }
+          }
+          
+          .payment-amount {
+            font-weight: 600;
+          }
+        }
+        
+        .payment-actions {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          
+          .pay-button {
+            width: 100%;
+            padding: 12px;
+            font-weight: 600;
+            background-color: #d4af37;
+            color: #2c2823;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            height: auto;
+            line-height: normal;
+            
+            .button-content {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 100%;
+            }
+            
+            .paypal-logo {
+              width: 24px;
+              height: 24px;
+              margin-right: 10px;
+              display: inline-block;
+              vertical-align: middle;
+            }
+            
+            .button-text {
+              display: inline-block;
+              vertical-align: middle;
+            }
+            
+            mat-spinner {
+              margin-right: 10px;
+            }
+            
+            &:hover {
+              background-color: #c09f2f; /* Darker gold */
+              transform: translateY(-2px);
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            
+            &:disabled {
+              background-color: #cccccc;
+              color: #666666;
+            }
+            
+            .mat-icon, .paypal-icon {
+              font-size: 1.2rem;
+              width: 1.2rem;
+              height: 1.2rem;
+            }
+            
+            .paypal-icon {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-right: 4px;
+            }
+          }
+          
+          .payment-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            font-weight: 500;
+            
+            &.success {
+              color: #7d8c5c;
+            }
+            
+            &.error {
+              color: #d16666;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .reservation-actions {
+    display: flex;
+    justify-content: center;
+    
+    .secondary-button {
+      color: #6a3d2a;
+      border: 1px solid rgba(106, 61, 42, 0.3);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background-color: rgba(106, 61, 42, 0.05);
+      }
+    }
+  }
+}

@@ -1,0 +1,150 @@
+<div class="reservation-detail-container">
+  <div class="container">
+    <!-- Siempre mostrar esto -->
+    <div class="back-link">
+      <a [routerLink]="['/reservations']" class="back-button">
+        <mat-icon>arrow_back</mat-icon>
+        <span>Volver a mis reservas</span>
+      </a>
+    </div>
+
+    <div class="detail-header">
+      <mat-icon class="reservation-icon">receipt_long</mat-icon>
+      <h1>Detalle de Reserva</h1>
+    </div>
+
+    <!-- Estado de carga -->
+    <div *ngIf="isLoading" class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Cargando detalles de la reserva...</p>
+    </div>
+
+    <!-- Estado de error -->
+    <div *ngIf="!isLoading && error" class="error-container">
+      <mat-icon color="warn">error_outline</mat-icon>
+      <h3>{{ error }}</h3>
+      <button mat-raised-button color="primary" [routerLink]="['/reservations']">
+        Volver a mis reservas
+      </button>
+    </div>
+
+    <!-- Mensaje de depuración -->
+    <div *ngIf="!isLoading && !error && !reservation" class="debug-container">
+      <mat-card class="debug-card">
+        <mat-card-content>
+          <h3>Información de depuración</h3>
+          <p>No se pudo cargar la reserva (reservation es null)</p>
+          <pre>isLoading: {{ isLoading }}</pre>
+          <pre>error: {{ error }}</pre>
+          <pre>reservation: {{ reservation | json }}</pre>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Detalles de la reserva -->
+    <div *ngIf="!isLoading && !error && reservation">
+      <div class="reservation-card">
+        <!-- Encabezado de la reserva -->
+        <div class="reservation-header">
+          <div class="restaurant-name">{{ reservation.restaurantName }}</div>
+          <div class="status-badge" [ngClass]="'status-' + reservation.status.toLowerCase()">
+            <mat-icon>{{ getStatusIcon(reservation.status) }}</mat-icon>
+            {{ getStatusLabel(reservation.status) }}
+          </div>
+        </div>
+
+        <!-- Contenido principal de la reserva -->
+        <div class="reservation-body">
+          <!-- Detalles principales -->
+          <div class="reservation-main-details">
+            <div class="detail-row">
+              <div class="detail-item">
+                <div class="detail-label">
+                  <mat-icon>event</mat-icon>
+                  <span>Fecha y hora</span>
+                </div>
+                <div class="detail-value">
+                  {{ reservation.reservationDate | date:'EEEE, d MMMM yyyy, HH:mm' }}
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-item">
+                <div class="detail-label">
+                  <mat-icon>people</mat-icon>
+                  <span>Número de personas</span>
+                </div>
+                <div class="detail-value">{{ reservation.numberOfPeople }} persona{{ reservation.numberOfPeople > 1 ? 's' : '' }}</div>
+              </div>
+            </div>
+
+            <div class="detail-row" *ngIf="reservation.additionalInfo">
+              <div class="detail-item">
+                <div class="detail-label">
+                  <mat-icon>note</mat-icon>
+                  <span>Información adicional</span>
+                </div>
+                <div class="detail-value">{{ reservation.additionalInfo }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sección de pago -->
+          <div class="payment-section">
+            <h3>Resumen del Pago</h3>
+
+            <div class="payment-details">
+              <div class="payment-row">
+                <span>Total para {{ reservation.numberOfPeople }} persona{{ reservation.numberOfPeople > 1 ? 's' : '' }}</span>
+                <span class="payment-amount">${{ reservation.totalAmount | number:'1.2-2' }}</span>
+              </div>
+
+              <mat-divider></mat-divider>
+
+              <div class="payment-row total">
+                <span>Total a pagar</span>
+                <span class="payment-amount">${{ reservation.totalAmount | number:'1.2-2' }}</span>
+              </div>
+            </div>
+
+            <div class="payment-actions">
+              <button
+                mat-raised-button
+                color="primary"
+                class="pay-button"
+                *ngIf="reservation.status !== 'PAID' && reservation.status !== 'CANCELLED'"
+                (click)="initiatePayment()"
+                [disabled]="loadingPayment">
+                <div class="button-content">
+                  <ng-container *ngIf="!loadingPayment">
+                    <img src="icons/paypal.svg" alt="PayPal" class="paypal-logo">
+                  </ng-container>
+                  <mat-spinner *ngIf="loadingPayment" diameter="20" color="accent"></mat-spinner>
+                  <span class="button-text">{{ loadingPayment ? 'Procesando...' : 'Pagar con PayPal' }}</span>
+                </div>
+              </button>
+
+              <div class="payment-status" *ngIf="reservation.status === 'PAID'">
+                <mat-icon color="primary">check_circle</mat-icon>
+                <span>Pago realizado con éxito</span>
+              </div>
+
+              <div class="payment-status" *ngIf="reservation.status === 'CANCELLED'">
+                <mat-icon color="warn">cancel</mat-icon>
+                <span>Esta reserva ha sido cancelada</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reservation-actions">
+        <button mat-button class="secondary-button" [routerLink]="['/reservations']">
+          <mat-icon>arrow_back</mat-icon>
+          Volver a mis reservas
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

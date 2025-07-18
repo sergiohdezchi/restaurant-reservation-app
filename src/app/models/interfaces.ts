@@ -94,9 +94,35 @@ export interface Reservation {
   restaurantName: string;
   reservationDate: string;
   numberOfPeople: number;
-  status: 'PENDING' | 'PAID' | 'CANCELLED';
+  status: 'PENDING' | 'CONFIRMED' | 'COMPLETED' | 'CANCELLED' | 'PAID';
   additionalInfo?: string;
   totalAmount: number;
+}
+
+// Payment interfaces
+export interface PaymentRequest {
+  reservationId: number;
+  returnUrl: string;
+  cancelUrl: string;
+}
+
+export interface PaymentResponse {
+  paypalUrl: string;
+}
+
+export interface PaymentCaptureResponse {
+  completed: boolean;
+  reservationId: number;
+}
+
+// PayPal Interfaces
+export interface PaymentResponse {
+  paypalUrl: string;
+}
+
+export interface PaymentCaptureResponse {
+  completed: boolean;
+  reservationId: number;
 }
 
 // Payment interfaces

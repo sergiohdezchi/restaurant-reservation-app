@@ -48,21 +48,30 @@ export class ReservationListComponent implements OnInit {
     this.reservations = [
       {
         id: 1,
-        restaurantName: 'Restaurante El Buen Sabor',
-        reservationDate: '2024-01-15',
-        numberOfPeople: 4,
+        restaurantName: 'Ate Sazón',
+        reservationDate: '2025-08-08T20:00:00',
+        numberOfPeople: 2,
         status: 'PENDING',
-        additionalInfo: 'Mesa junto a la ventana',
-        totalAmount: 120.00
+        additionalInfo: 'Celebración de aniversario',
+        totalAmount: 90.00
       },
       {
         id: 2,
         restaurantName: 'Café Central',
-        reservationDate: '2024-01-20',
-        numberOfPeople: 2,
-        status: 'PENDING',
-        additionalInfo: '',
-        totalAmount: 85.50
+        reservationDate: '2024-09-15T19:30:00',
+        numberOfPeople: 4,
+        status: 'PAID',
+        additionalInfo: 'Mesa junto a la ventana',
+        totalAmount: 120.00
+      },
+      {
+        id: 3,
+        restaurantName: 'Restaurante Miraflores',
+        reservationDate: '2025-10-20T21:00:00',
+        numberOfPeople: 6,
+        status: 'CONFIRMED',
+        additionalInfo: 'Cumpleaños',
+        totalAmount: 180.50
       }
     ];
     this.filteredReservations = [...this.reservations];

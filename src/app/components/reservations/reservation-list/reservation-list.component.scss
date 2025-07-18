@@ -1,7 +1,7 @@
 .reservations-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 80px 0 60px 0;
+  background-color: #f5f2ed;
+  padding: 50px 0 60px 0;
 
   .container {
     max-width: 1200px;
@@ -12,28 +12,30 @@
   .reservations-header {
     text-align: center;
     margin-bottom: 40px;
-    color: white;
+    color: #6a3d2a;
 
     .reservations-icon {
-      font-size: 4rem;
-      width: 4rem;
-      height: 4rem;
-      margin-bottom: 20px;
-      color: #4ecdc4;
+      font-size: 3.5rem;
+      width: 3.5rem;
+      height: 3.5rem;
+      margin-bottom: 15px;
+      color: #d4af37;
     }
 
     h1 {
       font-size: 2.5rem;
       font-weight: 700;
       margin-bottom: 10px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      font-family: 'Cormorant Garamond', serif;
+      color: #6a3d2a;
     }
   }
 
   .filters-card {
     margin-bottom: 30px;
-    border-radius: 20px !important;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 16px rgba(44, 40, 36, 0.08) !important;
+    border: 1px solid rgba(106, 61, 42, 0.05) !important;
 
     .filters-form {
       display: grid;
@@ -47,17 +49,17 @@
 
       .clear-filters-btn {
         justify-self: end;
-        border-radius: 25px;
-        padding: 12px 24px;
+        border-radius: 4px;
+        padding: 8px 20px;
         font-weight: 500;
-        border: 2px solid #ff6b6b;
-        color: #ff6b6b;
+        border: 1px solid #d16666;
+        color: #d16666;
         transition: all 0.3s ease;
 
         &:hover {
-          background-color: #ff6b6b;
-          color: white;
-          transform: translateY(-2px);
+          background-color: rgba(209, 102, 102, 0.1);
+          border-color: #d16666;
+          transform: translateY(-1px);
         }
       }
     }
@@ -68,32 +70,35 @@
     gap: 25px;
 
     .reservation-card {
-      border-radius: 20px !important;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important;
+      border-radius: 6px !important;
+      box-shadow: 0 4px 16px rgba(44, 40, 36, 0.08) !important;
+      border: 1px solid rgba(106, 61, 42, 0.05) !important;
       transition: all 0.3s ease;
       overflow: hidden;
 
       &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.15) !important;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(44, 40, 36, 0.12) !important;
+        cursor: pointer;
       }
 
       .mat-mdc-card-header {
-        background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
-        color: white;
+        background: #6a3d2a;
+        color: #f9f6f2;
         padding: 20px;
 
         .reservation-avatar {
           .mat-icon {
-            font-size: 2.5rem;
-            width: 2.5rem;
-            height: 2.5rem;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
+            font-size: 2rem;
+            width: 2rem;
+            height: 2rem;
+            background: rgba(249, 246, 242, 0.15);
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-right: 15px;
+            padding: 8px;
           }
         }
 
@@ -103,7 +108,13 @@
           margin-bottom: 5px;
         }
 
-        .reservation-date {
+        .mat-mdc-card-subtitle {
+          display: flex;
+          gap: 15px;
+          margin-top: 10px;
+        }
+
+        .reservation-date, .reservation-time {
           display: flex;
           align-items: center;
           gap: 8px;
@@ -130,16 +141,16 @@
             align-items: center;
             gap: 12px;
             padding: 12px;
-            background: rgba(0,0,0,0.02);
-            border-radius: 12px;
+            background: #f9f6f2;
+            border-radius: 8px;
             transition: all 0.3s ease;
 
             &:hover {
-              background: rgba(255,107,107,0.05);
+              background: rgba(212, 175, 55, 0.1);
             }
 
             .mat-icon {
-              color: #4ecdc4;
+              color: #d4af37;
               font-size: 1.2rem;
               width: 1.2rem;
               height: 1.2rem;
@@ -147,7 +158,7 @@
 
             span {
               font-weight: 500;
-              color: #2c3e50;
+              color: #6a3d2a;
             }
           }
 
@@ -155,9 +166,9 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 500;
             font-size: 0.9rem;
             width: fit-content;
 
@@ -168,51 +179,62 @@
             }
 
             &.status-pending {
-              background: rgba(255, 193, 7, 0.1);
-              color: #ff8f00;
-              border: 1px solid rgba(255, 193, 7, 0.3);
+              background: rgba(212, 174, 71, 0.1);
+              color: #d4af37;
+              border: 1px solid rgba(212, 174, 71, 0.3);
+            }
+
+            &.status-confirmed {
+              background: rgba(125, 140, 92, 0.1);
+              color: #7d8c5c;
+              border: 1px solid rgba(125, 140, 92, 0.3);
+            }
+
+            &.status-completed {
+              background: rgba(104, 152, 104, 0.1);
+              color: #689868;
+              border: 1px solid rgba(104, 152, 104, 0.3);
             }
 
             &.status-paid {
-              background: rgba(76, 175, 80, 0.1);
-              color: #388e3c;
-              border: 1px solid rgba(76, 175, 80, 0.3);
+              background: rgba(104, 152, 104, 0.1);
+              color: #689868;
+              border: 1px solid rgba(104, 152, 104, 0.3);
             }
 
             &.status-cancelled {
-              background: rgba(244, 67, 54, 0.1);
-              color: #d32f2f;
-              border: 1px solid rgba(244, 67, 54, 0.3);
+              background: rgba(209, 102, 102, 0.1);
+              color: #d16666;
+              border: 1px solid rgba(209, 102, 102, 0.3);
             }
           }
         }
       }
 
       .mat-mdc-card-actions {
-        padding: 20px 25px;
-        border-top: 1px solid rgba(0,0,0,0.05);
+        padding: 16px 24px;
+        border-top: 1px solid rgba(106, 61, 42, 0.08);
         display: flex;
-        gap: 15px;
+        gap: 12px;
         justify-content: flex-end;
+        background-color: rgba(106, 61, 42, 0.02);
 
         .mat-mdc-raised-button {
-          border-radius: 25px;
-          padding: 12px 24px;
+          border-radius: 4px;
+          padding: 0 20px;
           font-weight: 500;
           text-transform: none;
-          box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-
-          &.mat-primary {
-            background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
-          }
+          height: 40px;
+          box-shadow: 0 3px 8px rgba(106, 61, 42, 0.15);
         }
 
-        .mat-mdc-outlined-button {
-          border-radius: 25px;
-          padding: 12px 24px;
+        .mat-mdc-stroked-button {
+          border-radius: 4px;
+          padding: 0 20px;
           font-weight: 500;
           text-transform: none;
-          border: 2px solid currentColor;
+          height: 40px;
+          border: 1px solid currentColor;
         }
       }
     }
@@ -227,23 +249,25 @@
     .mat-mdc-card {
       text-align: center;
       padding: 40px;
-      border-radius: 20px !important;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important;
+      border-radius: 6px !important;
+      box-shadow: 0 4px 16px rgba(44, 40, 36, 0.08) !important;
+      border: 1px solid rgba(106, 61, 42, 0.05) !important;
       max-width: 500px;
 
       .empty-content {
         .empty-icon {
-          font-size: 4rem;
-          width: 4rem;
-          height: 4rem;
-          color: #4ecdc4;
+          font-size: 3.5rem;
+          width: 3.5rem;
+          height: 3.5rem;
+          color: #d4af37;
           margin-bottom: 20px;
         }
 
         h3 {
           font-size: 1.5rem;
-          color: #2c3e50;
+          color: #6a3d2a;
           margin-bottom: 15px;
+          font-family: 'Cormorant Garamond', serif;
           font-weight: 600;
         }
 
