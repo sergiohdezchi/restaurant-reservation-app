@@ -16,7 +16,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  title = 'FlavorHub - Reservas de Restaurantes';
+  title = 'GourmetSpot - Reservas de Restaurantes';
   currentUser: User | null = null;
   isAuthRoute = false;
 
