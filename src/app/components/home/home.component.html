@@ -1,0 +1,78 @@
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1>Bienvenido a <span class="brand">FlavorHub</span></h1>
+      <p class="hero-subtitle">
+        Descubre los mejores restaurantes y reserva tu experiencia gastronómica perfecta
+      </p>
+      <div class="hero-buttons">
+        <button mat-raised-button color="primary" [routerLink]="['/restaurants']" class="cta-button">
+          <mat-icon>restaurant_menu</mat-icon>
+          Explorar Restaurantes
+        </button>
+        <button mat-stroked-button color="accent" [routerLink]="['/auth/login']" class="cta-button">
+          <mat-icon>login</mat-icon>
+          Iniciar Sesión
+        </button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <mat-icon class="hero-icon">restaurant</mat-icon>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+  <div class="container">
+    <div class="section-header">
+      <h2>¿Por qué elegir FlavorHub?</h2>
+      <p>Ofrecemos la mejor experiencia para tus reservas gastronómicas</p>
+    </div>
+    
+    <div class="features-grid">
+      <mat-card class="feature-card" *ngFor="let feature of features">
+        <mat-card-content>
+          <div class="feature-icon">
+            <mat-icon>{{ feature.icon }}</mat-icon>
+          </div>
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item" *ngFor="let stat of stats">
+        <div class="stat-value">{{ stat.value }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+  <div class="container">
+    <div class="cta-content">
+      <h2>¿Listo para tu próxima experiencia gastronómica?</h2>
+      <p>Únete a miles de usuarios que ya confían en FlavorHub</p>
+      <div class="cta-buttons">
+        <button mat-raised-button color="primary" [routerLink]="['/auth/register']" class="cta-button">
+          <mat-icon>person_add</mat-icon>
+          Registrarse
+        </button>
+        <button mat-stroked-button color="accent" [routerLink]="['/restaurants']" class="cta-button">
+          <mat-icon>explore</mat-icon>
+          Explorar Ahora
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

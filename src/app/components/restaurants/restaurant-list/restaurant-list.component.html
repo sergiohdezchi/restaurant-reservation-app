@@ -1,0 +1,117 @@
+<div class="restaurant-list-container">
+  <div class="container">
+    <!-- Header -->
+    <div class="page-header">
+      <h1>Restaurantes</h1>
+      <p>Descubre los mejores restaurantes de la ciudad</p>
+    </div>
+    
+    <!-- Filters -->
+    <div class="filters">
+      <mat-card class="filter-card">
+        <mat-card-content>
+          <div class="filter-row">
+            <mat-form-field appearance="outline" class="district-select">
+              <mat-label>Filtrar por distrito</mat-label>
+              <mat-select [(value)]="selectedDistrict" (selectionChange)="onDistrictChange()">
+                <mat-option value="">Todos los distritos</mat-option>
+                <mat-option *ngFor="let district of districts" [value]="district.name">
+                  {{ district.name }}
+                </mat-option>
+              </mat-select>
+              <mat-icon matSuffix>location_on</mat-icon>
+            </mat-form-field>
+            
+            <button mat-stroked-button (click)="clearFilter()" *ngIf="selectedDistrict">
+              <mat-icon>clear</mat-icon>
+              Limpiar filtro
+            </button>
+          </div>
+          
+          <div class="results-info" *ngIf="!isLoading">
+            <span class="results-count">
+              Mostrando {{ restaurants.length }} de {{ totalElements }} restaurantes
+              <span *ngIf="selectedDistrict"> en {{ selectedDistrict }}</span>
+            </span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    
+    <!-- Loading -->
+    <div class="loading-container" *ngIf="isLoading">
+      <mat-spinner></mat-spinner>
+      <p>Cargando restaurantes...</p>
+    </div>
+    
+    <!-- Restaurant Grid -->
+    <div class="restaurant-grid" *ngIf="!isLoading && restaurants.length > 0">
+      <mat-card class="restaurant-card" *ngFor="let restaurant of restaurants">
+        <mat-card-header>
+          <div class="restaurant-header">
+            <mat-card-title>{{ restaurant.name }}</mat-card-title>
+            <mat-card-subtitle>
+              <mat-icon>location_on</mat-icon>
+              {{ restaurant.districtName }}
+            </mat-card-subtitle>
+          </div>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <div class="restaurant-info">
+            <div class="info-item">
+              <mat-icon>place</mat-icon>
+              <span>{{ restaurant.address }}</span>
+            </div>
+            
+            <div class="info-item">
+              <mat-icon>phone</mat-icon>
+              <span>{{ restaurant.phoneNumber }}</span>
+            </div>
+            
+            <div class="info-item">
+              <mat-icon>attach_money</mat-icon>
+              <span>S/. {{ restaurant.pricePerPerson }} por persona</span>
+            </div>
+            
+            <div class="info-item">
+              <mat-icon>people</mat-icon>
+              <span>Capacidad: {{ restaurant.capacity }} personas</span>
+            </div>
+          </div>
+        </mat-card-content>
+        
+        <mat-card-actions>
+          <button mat-raised-button color="primary" [routerLink]="['/restaurant', restaurant.id]">
+            <mat-icon>visibility</mat-icon>
+            Ver Detalles
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!isLoading && restaurants.length === 0">
+      <mat-icon>restaurant</mat-icon>
+      <h2>No se encontraron restaurantes</h2>
+      <p *ngIf="selectedDistrict">No hay restaurantes disponibles en {{ selectedDistrict }}</p>
+      <p *ngIf="!selectedDistrict">No hay restaurantes disponibles en este momento</p>
+      <button mat-raised-button color="primary" (click)="clearFilter()" *ngIf="selectedDistrict">
+        <mat-icon>refresh</mat-icon>
+        Ver todos los restaurantes
+      </button>
+    </div>
+    
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="!isLoading && totalPages > 1">
+      <mat-paginator 
+        [length]="totalElements"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[6, 12, 24]"
+        [pageIndex]="currentPage"
+        (page)="onPageChange($event.pageIndex)"
+        showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  </div>
+</div>

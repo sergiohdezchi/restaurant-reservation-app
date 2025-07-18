@@ -1,0 +1,229 @@
+// Variables
+$primary-color: #ff6b6b;
+$secondary-color: #4ecdc4;
+$accent-color: #45b7d1;
+$dark-color: #2c3e50;
+$light-color: #ecf0f1;
+$text-color: #333;
+$background-color: #f8f9fa;
+
+.profile-container {
+  min-height: 100vh;
+  background-color: $background-color;
+  padding: 20px 0;
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+    
+    .profile-icon {
+      font-size: 3rem;
+      width: 3rem;
+      height: 3rem;
+      color: $primary-color;
+      margin-bottom: 10px;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      color: $dark-color;
+      margin: 0;
+    }
+  }
+  
+  .profile-card {
+    margin-bottom: 30px;
+    border-radius: 15px;
+    
+    .profile-avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: $primary-color;
+      color: white;
+      margin-right: 15px;
+      
+      mat-icon {
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+    
+    mat-card-title {
+      font-size: 1.5rem;
+      color: $dark-color;
+      margin-bottom: 5px;
+    }
+    
+    mat-card-subtitle {
+      color: $text-color;
+      opacity: 0.8;
+    }
+    
+    .profile-info {
+      margin-top: 20px;
+      
+      .info-row {
+        display: flex;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        mat-icon {
+          color: $accent-color;
+          margin-right: 15px;
+          font-size: 1.3rem;
+          width: 1.3rem;
+          height: 1.3rem;
+        }
+        
+        .info-content {
+          flex: 1;
+          
+          label {
+            display: block;
+            font-size: 0.9rem;
+            color: $text-color;
+            opacity: 0.7;
+            margin-bottom: 5px;
+          }
+          
+          span {
+            font-size: 1rem;
+            color: $dark-color;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+    
+    mat-card-actions {
+      padding: 20px;
+      display: flex;
+      gap: 15px;
+      
+      button {
+        flex: 1;
+        height: 40px;
+        border-radius: 20px;
+        
+        mat-icon {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+  
+  .coming-soon {
+    mat-card {
+      text-align: center;
+      padding: 20px;
+      border-radius: 15px;
+      background: linear-gradient(135deg, $secondary-color 0%, $accent-color 100%);
+      color: white;
+      
+      mat-icon {
+        font-size: 3rem;
+        width: 3rem;
+        height: 3rem;
+        margin-bottom: 15px;
+        opacity: 0.8;
+      }
+      
+      h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+      
+      p {
+        opacity: 0.9;
+        line-height: 1.6;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .profile-container {
+    .container {
+      padding: 0 10px;
+    }
+    
+    .profile-header {
+      .profile-icon {
+        font-size: 2.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+    }
+    
+    .profile-card {
+      .profile-avatar {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+        
+        mat-icon {
+          font-size: 1.7rem;
+          width: 1.7rem;
+          height: 1.7rem;
+        }
+      }
+      
+      mat-card-title {
+        font-size: 1.3rem;
+      }
+      
+      mat-card-actions {
+        flex-direction: column;
+        align-items: stretch;
+        
+        button {
+          margin-bottom: 10px;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    padding: 10px 0;
+    
+    .profile-card {
+      .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        
+        mat-icon {
+          margin-bottom: 10px;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
