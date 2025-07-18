@@ -1,18 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles for GourmetSpot - Modern Restaurant Reservation App */
 @use "sass:color";
 
-// Global styles for FlavorHub
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+// Importaciones de fuentes
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-// Variables globales
-$primary-color: #ff6b6b;
-$secondary-color: #4ecdc4;
-$accent-color: #45b7d1;
-$dark-color: #2c3e50;
-$light-color: #ecf0f1;
-$text-color: #333;
-$background-color: #f8f9fa;
+// Nueva paleta de colores elegante y sofisticada
+$primary-color: #6a3d2a;     // Marrón café elegante
+$secondary-color: #d4af37;   // Dorado sofisticado
+$accent-color: #7d8c5c;      // Verde oliva
+$dark-color: #2c2824;        // Marrón oscuro casi negro
+$light-color: #f9f6f2;       // Crema suave
+$text-color: #463832;        // Marrón texto
+$background-color: #f5f2ed;  // Beige claro
+$error-color: #d16666;       // Rojo suave
+$success-color: #689868;     // Verde oliva suave
+$warning-color: #d49e47;     // Ámbar dorado
 
 // Global resets
 * {
@@ -23,10 +26,25 @@ $background-color: #f8f9fa;
 
 html, body {
   height: 100%;
-  font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background-color: $background-color;
   color: $text-color;
-  line-height: 1.6;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+// Tipografía especial para títulos
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: $dark-color;
+  margin-bottom: 0.8em;
+}
+
+// Efecto de transición global
+.page-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 // Material Icons fix
@@ -68,64 +86,319 @@ mat-icon {
 // Custom Material Design theme colors
 .mat-primary {
   background-color: $primary-color !important;
-  color: white !important;
+  color: $light-color !important;
 }
 
 .mat-accent {
-  background-color: $accent-color !important;
-  color: white !important;
+  background-color: $secondary-color !important;
+  color: $dark-color !important;
 }
 
 .mat-warn {
-  background-color: #f44336 !important;
-  color: white !important;
+  background-color: $error-color !important;
+  color: $light-color !important;
+}
+
+// Botones personalizados
+.mat-mdc-raised-button.mat-primary {
+  background-color: $primary-color !important;
+  color: $light-color !important;
+  border-radius: 4px !important;
+  box-shadow: 0 3px 8px rgba($primary-color, 0.25) !important;
+  letter-spacing: 0.5px !important;
+
+  &:hover {
+    background-color: color.adjust($primary-color, $lightness: 5%) !important;
+    box-shadow: 0 5px 12px rgba($primary-color, 0.35) !important;
+    transform: translateY(-1px) !important;
+  }
+}
+
+.mat-mdc-raised-button.mat-accent {
+  background-color: $secondary-color !important;
+  color: $dark-color !important;
+  border-radius: 4px !important;
+
+  &:hover {
+    background-color: color.adjust($secondary-color, $lightness: 5%) !important;
+    box-shadow: 0 5px 12px rgba($secondary-color, 0.3) !important;
+  }
+}
+
+.mat-mdc-stroked-button {
+  border-radius: 4px !important;
+  border-color: rgba($primary-color, 0.3) !important;
+  color: $primary-color !important;
+
+  &:hover {
+    background-color: rgba($primary-color, 0.05) !important;
+  }
 }
 
 // Custom scrollbar
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: $light-color;
 }
 
 ::-webkit-scrollbar-thumb {
   background: $primary-color;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: color.adjust($primary-color, $lightness: -10%);
+  background: color.adjust($primary-color, $lightness: -8%);
 }
 
 // Custom Material UI overrides
 .mat-toolbar {
-  background-color: $primary-color !important;
-  color: white !important;
+  background-color: $light-color !important;
+  color: $primary-color !important;
+  border-bottom: 1px solid rgba($primary-color, 0.1) !important;
 }
 
-.mat-card {
-  border-radius: 15px !important;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
-}
+.mat-mdc-card {
+  border-radius: 6px !important;
+  box-shadow: 0 4px 16px rgba($dark-color, 0.08) !important;
+  border: 1px solid rgba($primary-color, 0.06) !important;
+  overflow: hidden !important;
+  background-color: $light-color !important;
 
-.mat-button, .mat-raised-button, .mat-stroked-button {
-  font-weight: 500 !important;
-  letter-spacing: 0.5px !important;
-}
+  .mat-mdc-card-header {
+    padding: 24px 24px 16px !important;
 
-.mat-form-field {
-  .mat-form-field-label {
+    .mat-mdc-card-title {
+      font-family: 'Cormorant Garamond', serif !important;
+      font-weight: 600 !important;
+      color: $dark-color !important;
+      font-size: 1.5rem !important;
+    }
+
+    .mat-mdc-card-subtitle {
+      color: $primary-color !important;
+      font-weight: 500 !important;
+      font-size: 0.9rem !important;
+    }
+  }
+
+  .mat-mdc-card-content {
+    padding: 16px 24px 24px !important;
     color: $text-color !important;
   }
+
+  .mat-mdc-card-actions {
+    padding: 16px 24px !important;
+    border-top: 1px solid rgba($primary-color, 0.08) !important;
+    background-color: rgba($primary-color, 0.02) !important;
+  }
+}
+
+.mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-stroked-button {
+  font-weight: 500 !important;
+  letter-spacing: 0.3px !important;
+  font-family: 'Lato', sans-serif !important;
+  text-transform: none !important;
+  padding: 0 22px !important;
+  height: 40px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+// Custom form field styles
+.mat-mdc-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+  font-family: 'Lato', sans-serif !important;
+
+  &.mat-mdc-form-field-appearance-fill {
+    .mdc-text-field {
+      border-radius: 4px !important;
+      background-color: $light-color !important;
+      border: 1px solid rgba($primary-color, 0.1) !important;
+      box-shadow: 0 2px 6px rgba($dark-color, 0.02) !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      padding: 2px 0 !important;
+
+      &:hover {
+        border-color: rgba($primary-color, 0.25) !important;
+        box-shadow: 0 3px 10px rgba($dark-color, 0.05) !important;
+      }
+
+      &.mdc-text-field--focused {
+        border-color: $secondary-color !important;
+        box-shadow: 0 0 0 2px rgba($secondary-color, 0.15) !important;
+      }
+    }
+
+    .mdc-line-ripple {
+      display: none !important;
+    }
+
+    .mdc-text-field__ripple {
+      display: none !important;
+    }
+  }
+
+  .mat-mdc-form-field-label {
+    color: rgba($dark-color, 0.7) !important;
+    font-weight: 500 !important;
+    font-size: 0.95rem !important;
+    font-family: 'Lato', sans-serif !important;
+
+    &.mdc-floating-label--float-above {
+      color: $primary-color !important;
+      font-weight: 500 !important;
+    }
+  }
+
+  .mat-mdc-input-element {
+    color: $light-color !important;
+    font-weight: 400 !important;
+    font-size: 1rem !important;
+    padding: 12px 12px !important;
+    font-family: 'Lato', sans-serif !important;
+
+    &::placeholder {
+      color: rgba($light-color, 0.4) !important;
+      font-weight: 400 !important;
+      font-style: italic !important;
+      font-size: 0.9rem !important;
+    }
+  }
+
+  .mat-mdc-form-field-icon-suffix {
+    .mat-icon {
+      color: $secondary-color !important;
+      transition: color 0.3s ease !important;
+    }
+
+    .mat-mdc-icon-button {
+      .mat-icon {
+        color: rgba($primary-color, 0.5) !important;
+
+        &:hover {
+          color: $primary-color !important;
+        }
+      }
+    }
+  }
+
+  .mat-mdc-form-field-error {
+    color: $error-color !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+    margin-top: 4px !important;
+    margin-left: 4px !important;
+  }
+
+  .mat-mdc-form-field-hint {
+    color: rgba($text-color, 0.6) !important;
+    font-size: 0.8rem !important;
+    margin-left: 4px !important;
+  }
+}
+
+// Legacy mat-form-field support
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+
+  &.mat-form-field-appearance-fill {
+    .mat-form-field-flex {
+      background-color: $light-color !important;
+      border-radius: 4px !important;
+      border: 1px solid rgba($primary-color, 0.1) !important;
+      padding: 0 12px !important;
+      transition: all 0.3s ease !important;
+
+      &:hover {
+        border-color: rgba($primary-color, 0.25) !important;
+        background-color: $light-color !important;
+      }
+    }
+
+    &.mat-focused {
+      .mat-form-field-flex {
+        border-color: $secondary-color !important;
+        background-color: rgba($secondary-color, 0.02) !important;
+        box-shadow: 0 0 0 2px rgba($secondary-color, 0.1) !important;
+      }
+    }
+
+    .mat-form-field-underline {
+      display: none !important;
+    }
+
+    .mat-form-field-ripple {
+      display: none !important;
+    }
+  }
+
+  .mat-form-field-label {
+    color: rgba($text-color, 0.7) !important;
+    font-weight: 500 !important;
+    font-family: 'Lato', sans-serif !important;
+
+    &.mat-focused {
+      color: $primary-color !important;
+    }
+  }
+
+  .mat-input-element {
+    color: $text-color !important;
+    font-weight: 400 !important;
+    padding: 14px 0 !important;
+    font-family: 'Lato', sans-serif !important;
+
+    &::placeholder {
+      color: rgba($text-color, 0.4) !important;
+      font-weight: 400 !important;
+    }
+  }
+
+  .mat-form-field-suffix {
+    .mat-icon {
+      color: $secondary-color !important;
+      transition: color 0.3s ease !important;
+    }
+
+    .mat-icon-button {
+      .mat-icon {
+        color: rgba($primary-color, 0.6) !important;
+
+        &:hover {
+          color: $primary-color !important;
+        }
+      }
+    }
+  }
+
+  .mat-error {
+    color: $error-color !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+    margin-top: 4px !important;
+  }
+}
+
+// Specific spacing for form fields
+.full-width {
+  width: 100% !important;
+  margin-bottom: 18px !important;
+}
+
+.half-width {
+  width: 100% !important;
+  margin-bottom: 18px !important;
 }
 
 // Utility classes
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
 }
 
 .text-center {
@@ -148,7 +421,7 @@ mat-icon {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(15px);
   }
   to {
     opacity: 1;
@@ -157,13 +430,13 @@ mat-icon {
 }
 
 .fade-in {
-  animation: fadeIn 0.5s ease-in-out;
+  animation: fadeIn 0.4s ease-out;
 }
 
 // Responsive utilities
 @media (max-width: 768px) {
   .container {
-    padding: 0 10px;
+    padding: 0 16px;
   }
 
   .hide-mobile {
@@ -179,17 +452,32 @@ mat-icon {
 
 // Custom button styles
 .btn-gradient {
-  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
-  color: white;
+  background: linear-gradient(135deg, $primary-color 0%, darken($primary-color, 15%) 100%);
+  color: $light-color;
   border: none;
-  border-radius: 25px;
-  padding: 12px 24px;
+  border-radius: 4px;
+  padding: 10px 22px;
   font-weight: 500;
   transition: all 0.3s;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba($dark-color, 0.2);
+  }
+}
+
+.btn-secondary-gradient {
+  background: linear-gradient(135deg, $secondary-color 0%, darken($secondary-color, 10%) 100%);
+  color: $dark-color;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 22px;
+  font-weight: 500;
+  transition: all 0.3s;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba($dark-color, 0.15);
   }
 }
 
@@ -200,7 +488,7 @@ mat-icon {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba($dark-color, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -209,15 +497,19 @@ mat-icon {
 
 // Error and success message styles
 .error-message {
-  color: #f44336;
-  font-size: 0.9rem;
-  margin-top: 5px;
+  color: $error-color;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  padding: 4px 0;
+  font-weight: 500;
 }
 
 .success-message {
-  color: #4caf50;
-  font-size: 0.9rem;
-  margin-top: 5px;
+  color: $success-color;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  padding: 4px 0;
+  font-weight: 500;
 }
 
 // Custom card hover effects
@@ -225,7 +517,8 @@ mat-icon {
   transition: all 0.3s ease;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba($dark-color, 0.12);
+    border-color: rgba($primary-color, 0.1);
   }
 }

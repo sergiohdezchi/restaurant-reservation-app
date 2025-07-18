@@ -1,47 +1,58 @@
 <!-- Navbar -->
-<mat-toolbar color="primary" class="navbar" *ngIf="!isAuthRoute">
-  <div class="navbar-container">
-    <div class="navbar-brand" (click)="navigateToHome()">
-      <mat-icon>restaurant</mat-icon>
-      <span>FlavorHub</span>
+<div class="navbar-wrapper" *ngIf="!isAuthRoute">
+  <mat-toolbar class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-brand" (click)="navigateToHome()">
+        <div class="brand-logo">
+          <mat-icon>restaurant_menu</mat-icon>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">GourmetSpot</span>
+          <span class="brand-tagline">Experiencia Culinaria</span>
+        </div>
+      </div>
+      
+      <div class="navbar-menu">
+        <button mat-button class="nav-button" (click)="navigateToRestaurants()" *ngIf="currentUser">
+          <mat-icon>restaurant</mat-icon>
+          <span>Restaurantes</span>
+        </button>
+        
+        <button mat-button class="nav-button" (click)="navigateToReservations()" *ngIf="currentUser">
+          <mat-icon>calendar_today</mat-icon>
+          <span>Mis Reservas</span>
+        </button>
+        
+        <button mat-button class="nav-button user-button" [matMenuTriggerFor]="userMenu" *ngIf="currentUser; else loginButton">
+          <div class="user-avatar">
+            <mat-icon>person</mat-icon>
+          </div>
+          <span>{{ currentUser.firstName }}</span>
+          <mat-icon class="dropdown-icon">expand_more</mat-icon>
+        </button>
+        
+        <ng-template #loginButton>
+          <button mat-raised-button color="accent" class="login-button" [routerLink]="['/auth/login']">
+            <mat-icon>login</mat-icon>
+            <span>Iniciar Sesión</span>
+          </button>
+        </ng-template>
+        
+        <mat-menu #userMenu="matMenu" class="user-menu">
+          <button mat-menu-item (click)="navigateToProfile()">
+            <mat-icon>account_circle</mat-icon>
+            <span>Mi Perfil</span>
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Cerrar Sesión</span>
+          </button>
+        </mat-menu>
+      </div>
     </div>
-    
-    <div class="navbar-menu">
-      <button mat-button (click)="navigateToRestaurants()" *ngIf="currentUser">
-        <mat-icon>restaurant_menu</mat-icon>
-        Restaurantes
-      </button>
-      
-      <button mat-button (click)="navigateToReservations()" *ngIf="currentUser">
-        <mat-icon>event_seat</mat-icon>
-        Mis Reservas
-      </button>
-      
-      <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="currentUser; else loginButton">
-        <mat-icon>person</mat-icon>
-        {{ currentUser.firstName }}
-      </button>
-      
-      <ng-template #loginButton>
-        <button mat-button [routerLink]="['/auth/login']">
-          <mat-icon>login</mat-icon>
-          Iniciar Sesión
-        </button>
-      </ng-template>
-      
-      <mat-menu #userMenu="matMenu">
-        <button mat-menu-item (click)="navigateToProfile()">
-          <mat-icon>person</mat-icon>
-          Mi Perfil
-        </button>
-        <button mat-menu-item (click)="logout()">
-          <mat-icon>logout</mat-icon>
-          Cerrar Sesión
-        </button>
-      </mat-menu>
-    </div>
-  </div>
-</mat-toolbar>
+  </mat-toolbar>
+</div>
 
 <!-- Main Content -->
 <div class="main-content" [class.auth-content]="isAuthRoute">
@@ -51,28 +62,71 @@
 <!-- Footer -->
 <footer class="footer" *ngIf="!isAuthRoute">
   <div class="footer-content">
-    <div class="footer-section">
-      <h3>FlavorHub</h3>
-      <p>Tu destino gastronómico favorito</p>
+    <div class="footer-section brand-section">
+      <div class="footer-logo">
+        <mat-icon>restaurant_menu</mat-icon>
+        <h3>GourmetSpot</h3>
+      </div>
+      <p class="tagline">Descubre el arte de la gastronomía</p>
+      <div class="social-links">
+        <a href="#" class="social-link">
+          <mat-icon>facebook</mat-icon>
+        </a>
+        <a href="#" class="social-link">
+          <mat-icon>public</mat-icon>
+        </a>
+        <a href="#" class="social-link">
+          <mat-icon>photo_camera</mat-icon>
+        </a>
+      </div>
     </div>
     
-    <div class="footer-section">
-      <h4>Enlaces</h4>
+    <div class="footer-section links-section">
+      <h4>Navega</h4>
       <ul>
+        <li><a [routerLink]="['/']">Inicio</a></li>
         <li><a [routerLink]="['/restaurants']">Restaurantes</a></li>
         <li><a [routerLink]="['/reservations']" *ngIf="currentUser">Mis Reservas</a></li>
         <li><a [routerLink]="['/profile']" *ngIf="currentUser">Mi Perfil</a></li>
       </ul>
     </div>
     
-    <div class="footer-section">
-      <h4>Contacto</h4>
-      <p>Email: info&#64;flavorhub.com</p>
-      <p>Teléfono: (01) 123-4567</p>
+    <div class="footer-section contact-section">
+      <h4>Contáctanos</h4>
+      <div class="contact-item">
+        <mat-icon>email</mat-icon>
+        <p>info&#64;gourmetspot.com</p>
+      </div>
+      <div class="contact-item">
+        <mat-icon>call</mat-icon>
+        <p>(01) 123-4567</p>
+      </div>
+      <div class="contact-item">
+        <mat-icon>location_on</mat-icon>
+        <p>Av. Gastronómica 123, Ciudad</p>
+      </div>
+    </div>
+    
+    <div class="footer-section newsletter-section">
+      <h4>Mantente informado</h4>
+      <p>Recibe recomendaciones personalizadas</p>
+      <div class="newsletter-form">
+        <mat-form-field appearance="fill" class="newsletter-input">
+          <input matInput placeholder="Tu email" type="email">
+        </mat-form-field>
+        <button mat-raised-button color="accent">
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
   
   <div class="footer-bottom">
-    <p>&copy; 2025 FlavorHub. Todos los derechos reservados.</p>
+    <p>&copy; 2025 GourmetSpot | Todos los derechos reservados</p>
+    <div class="footer-links">
+      <a href="#">Términos y Condiciones</a>
+      <span class="divider">|</span>
+      <a href="#">Política de Privacidad</a>
+    </div>
   </div>
 </footer>

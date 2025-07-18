@@ -1,0 +1,29 @@
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo con el color de fondo principal -->
+  <rect width="800" height="450" fill="#f5f2ed" />
+  
+  <!-- Elementos decorativos - líneas sutiles y elegantes -->
+  <rect x="0" y="0" width="800" height="10" fill="#d4af37" opacity="0.3" />
+  <rect x="0" y="440" width="800" height="10" fill="#d4af37" opacity="0.3" />
+  <rect x="0" y="0" width="10" height="450" fill="#d4af37" opacity="0.3" />
+  <rect x="790" y="0" width="10" height="450" fill="#d4af37" opacity="0.3" />
+
+  <!-- Círculo central decorativo -->
+  <circle cx="400" cy="225" r="120" fill="#f9f6f2" stroke="#d4af37" stroke-width="2" opacity="0.8" />
+  
+  <!-- Iconos de restaurante estilizados -->
+  <g transform="translate(320, 145)" fill="#6a3d2a">
+    <!-- Tenedor -->
+    <path d="M20,0 C22,0 30,8 30,20 L30,130 C30,136 24,140 20,140 C16,140 10,136 10,130 L10,20 C10,8 18,0 20,0 Z" />
+    
+    <!-- Separador -->
+    <rect x="60" y="0" width="4" height="140" rx="2" />
+    
+    <!-- Cuchillo -->
+    <path d="M100,0 C120,0 160,10 160,30 L160,50 C160,55 155,60 150,60 L130,60 L130,130 C130,136 124,140 120,140 C116,140 110,136 110,130 L110,60 L90,60 C85,60 80,55 80,50 L80,30 C80,10 120,0 100,0 Z" />
+  </g>
+  
+  <!-- Texto descriptivo -->
+  <text x="400" y="320" font-family="'Cormorant Garamond', serif" font-size="24" font-weight="600" text-anchor="middle" fill="#6a3d2a">Imagen no disponible</text>
+  <text x="400" y="350" font-family="'Lato', sans-serif" font-size="16" font-weight="400" text-anchor="middle" fill="#7d8c5c">GourmetSpot</text>
+</svg>

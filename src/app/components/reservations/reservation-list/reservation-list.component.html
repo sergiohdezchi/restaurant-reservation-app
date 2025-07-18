@@ -1,0 +1,126 @@
+<div class="reservations-container">
+  <div class="container">
+    <div class="reservations-header">
+      <mat-icon class="reservations-icon">event_note</mat-icon>
+      <h1>Mis Reservas</h1>
+    </div>
+
+    <!-- Filtros -->
+    <mat-card class="filters-card">
+      <mat-card-content>
+        <div class="filters-form">
+          <mat-form-field appearance="fill" class="filter-field">
+            <mat-label>Estado</mat-label>
+            <mat-select [(value)]="selectedStatus" (selectionChange)="filterReservations()">
+              <mat-option value="">Todos</mat-option>
+              <mat-option value="PENDING">Pendiente</mat-option>
+              <mat-option value="CONFIRMED">Confirmada</mat-option>
+              <mat-option value="COMPLETED">Completada</mat-option>
+              <mat-option value="CANCELLED">Cancelada</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>filter_list</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="filter-field">
+            <mat-label>Fecha desde</mat-label>
+            <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate" (dateChange)="filterReservations()">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="filter-field">
+            <mat-label>Fecha hasta</mat-label>
+            <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate" (dateChange)="filterReservations()">
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+          </mat-form-field>
+
+          <button mat-stroked-button (click)="clearFilters()" class="clear-filters-btn">
+            <mat-icon>clear</mat-icon>
+            Limpiar Filtros
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Lista de reservas -->
+    <div class="reservations-list" *ngIf="filteredReservations.length > 0; else noReservations">
+      <mat-card *ngFor="let reservation of filteredReservations" class="reservation-card hover-card">
+        <mat-card-header>
+          <div class="reservation-avatar">
+            <mat-icon>restaurant</mat-icon>
+          </div>
+          <mat-card-title>{{ reservation.restaurantName }}</mat-card-title>
+          <mat-card-subtitle>
+            <div class="reservation-date">
+              <mat-icon>schedule</mat-icon>
+              {{ reservation.reservationDate | date:'dd/MM/yyyy' }}
+            </div>
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="reservation-details">
+            <div class="detail-item">
+              <mat-icon>people</mat-icon>
+              <span>{{ reservation.numberOfPeople }} persona{{ reservation.numberOfPeople > 1 ? 's' : '' }}</span>
+            </div>
+
+            <div class="detail-item" *ngIf="reservation.additionalInfo">
+              <mat-icon>note</mat-icon>
+              <span>{{ reservation.additionalInfo }}</span>
+            </div>
+
+            <div class="detail-item">
+              <mat-icon>attach_money</mat-icon>
+              <span>${{ reservation.totalAmount | number:'1.2-2' }}</span>
+            </div>
+
+            <div class="status-badge" [ngClass]="'status-' + reservation.status.toLowerCase()">
+              <mat-icon>{{ getStatusIcon(reservation.status) }}</mat-icon>
+              {{ getStatusLabel(reservation.status) }}
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-raised-button color="primary" [routerLink]="['/reservations', reservation.id]">
+            <mat-icon>visibility</mat-icon>
+            Ver Detalles
+          </button>
+
+          <button mat-stroked-button color="warn"
+                  *ngIf="reservation.status === 'PENDING'"
+                  (click)="cancelReservation(reservation.id)"
+                  [disabled]="isLoading">
+            <mat-icon>cancel</mat-icon>
+            Cancelar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <!-- Estado vacío -->
+    <ng-template #noReservations>
+      <div class="empty-state">
+        <mat-card>
+          <mat-card-content class="empty-content">
+            <mat-icon class="empty-icon">event_busy</mat-icon>
+            <h3>No tienes reservas</h3>
+            <p>Cuando realices una reserva, aparecerá aquí.</p>
+            <button mat-raised-button color="primary" [routerLink]="['/restaurants']">
+              <mat-icon>restaurant_menu</mat-icon>
+              Explorar Restaurantes
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </ng-template>
+
+    <!-- Botón de crear reserva -->
+    <button mat-fab color="primary" class="fab-button" [routerLink]="['/restaurants']"
+            matTooltip="Hacer nueva reserva" matTooltipPosition="left">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>

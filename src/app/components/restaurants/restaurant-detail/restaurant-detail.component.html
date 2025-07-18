@@ -1,0 +1,220 @@
+<div class="restaurant-detail-container" *ngIf="restaurant">
+  <div class="container">
+    <!-- Header del restaurante -->
+    <div class="restaurant-hero">
+      <div class="restaurant-image">
+        <img [src]="restaurant.imageUrl || '/images/restaurant-placeholder.svg'"
+             [alt]="restaurant.name"
+             onerror="this.src='/images/restaurant-placeholder.svg'">
+        <div class="rating-overlay">
+          <div class="rating-badge">
+            <mat-icon>star</mat-icon>
+            <span>{{ restaurant.rating || 4.5 }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="restaurant-info">
+        <h1>{{ restaurant.name }}</h1>
+        <div class="restaurant-meta">
+          <div class="meta-item">
+            <mat-icon>restaurant</mat-icon>
+            <span>{{ restaurant.cuisine }}</span>
+          </div>
+          <div class="meta-item">
+            <mat-icon>location_on</mat-icon>
+            <span>{{ restaurant.address || 'Dirección no disponible' }}</span>
+          </div>
+          <div class="meta-item" *ngIf="restaurant.phone">
+            <mat-icon>phone</mat-icon>
+            <span>{{ restaurant.phone }}</span>
+          </div>
+        </div>
+        <p class="restaurant-description">
+          {{ restaurant.description || 'Descubre una experiencia culinaria única en este maravilloso restaurante.' }}
+        </p>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <!-- Información del restaurante -->
+      <div class="restaurant-details">
+        <mat-card class="info-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar>info</mat-icon>
+            <mat-card-title>Información</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="detail-row">
+              <mat-icon>schedule</mat-icon>
+              <div>
+                <strong>Horarios</strong>
+                <p>Lunes a Domingo: 12:00 - 23:00</p>
+              </div>
+            </div>
+            <div class="detail-row">
+              <mat-icon>local_dining</mat-icon>
+              <div>
+                <strong>Tipo de cocina</strong>
+                <p>{{ restaurant.cuisine }}</p>
+              </div>
+            </div>
+            <div class="detail-row">
+              <mat-icon>attach_money</mat-icon>
+              <div>
+                <strong>Rango de precios</strong>
+                <p>$$ - $$$</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Servicios disponibles -->
+        <mat-card class="services-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar>room_service</mat-icon>
+            <mat-card-title>Servicios</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="services-grid">
+              <div class="service-item">
+                <mat-icon>wifi</mat-icon>
+                <span>WiFi Gratis</span>
+              </div>
+              <div class="service-item">
+                <mat-icon>local_parking</mat-icon>
+                <span>Estacionamiento</span>
+              </div>
+              <div class="service-item">
+                <mat-icon>accessible</mat-icon>
+                <span>Accesible</span>
+              </div>
+              <div class="service-item">
+                <mat-icon>outdoor_grill</mat-icon>
+                <span>Terraza</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Formulario de reserva -->
+      <div class="reservation-form">
+        <mat-card class="reservation-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar>event_seat</mat-icon>
+            <mat-card-title>Hacer Reserva</mat-card-title>
+            <mat-card-subtitle>Reserva tu mesa ahora</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <form [formGroup]="reservationForm" (ngSubmit)="onSubmitReservation()">
+              <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Fecha de reserva</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="reservationDate"
+                       [min]="minDate" placeholder="Selecciona una fecha">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="reservationForm.get('reservationDate')?.invalid && reservationForm.get('reservationDate')?.touched">
+                  {{ getReservationErrorMessage('reservationDate') }}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Hora</mat-label>
+                <mat-select formControlName="time" placeholder="Selecciona una hora">
+                  <mat-option *ngFor="let time of availableTimes" [value]="time">
+                    {{ time }}
+                  </mat-option>
+                </mat-select>
+                <mat-icon matSuffix>schedule</mat-icon>
+                <mat-error *ngIf="reservationForm.get('time')?.invalid && reservationForm.get('time')?.touched">
+                  {{ getReservationErrorMessage('time') }}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Número de personas</mat-label>
+                <mat-select formControlName="numberOfPeople" placeholder="¿Cuántas personas?">
+                  <mat-option *ngFor="let num of [1,2,3,4,5,6,7,8,9,10]" [value]="num">
+                    {{ num }} persona{{ num > 1 ? 's' : '' }}
+                  </mat-option>
+                </mat-select>
+                <mat-icon matSuffix>people</mat-icon>
+                <mat-error *ngIf="reservationForm.get('numberOfPeople')?.invalid && reservationForm.get('numberOfPeople')?.touched">
+                  {{ getReservationErrorMessage('numberOfPeople') }}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Información adicional</mat-label>
+                <textarea matInput formControlName="additionalInfo"
+                          placeholder="Alergias, celebraciones especiales, etc."
+                          rows="3"></textarea>
+                <mat-icon matSuffix>note</mat-icon>
+              </mat-form-field>
+
+              <!-- Resumen de la reserva -->
+              <div class="reservation-summary" *ngIf="reservationForm.valid">
+                <h4>Resumen de tu reserva</h4>
+                <div class="summary-item">
+                  <mat-icon>restaurant</mat-icon>
+                  <span>{{ restaurant.name }}</span>
+                </div>
+                <div class="summary-item">
+                  <mat-icon>event</mat-icon>
+                  <span>{{ reservationForm.get('reservationDate')?.value | date:'dd/MM/yyyy' }}</span>
+                </div>
+                <div class="summary-item">
+                  <mat-icon>schedule</mat-icon>
+                  <span>{{ reservationForm.get('time')?.value }}</span>
+                </div>
+                <div class="summary-item">
+                  <mat-icon>people</mat-icon>
+                  <span>{{ reservationForm.get('numberOfPeople')?.value }} persona{{ reservationForm.get('numberOfPeople')?.value > 1 ? 's' : '' }}</span>
+                </div>
+                <div class="summary-total">
+                  <strong>Total estimado: ${{ calculateEstimatedTotal() | number:'1.2-2' }}</strong>
+                </div>
+              </div>
+
+              <button mat-raised-button color="primary" type="submit"
+                      class="full-width reserve-button"
+                      [disabled]="reservationForm.invalid || isLoading">
+                <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+                <mat-icon *ngIf="!isLoading">event_seat</mat-icon>
+                <span *ngIf="!isLoading">Reservar Mesa</span>
+                <span *ngIf="isLoading">Procesando...</span>
+              </button>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Estado de carga -->
+<div class="loading-container" *ngIf="!restaurant && isLoading">
+  <mat-card class="loading-card">
+    <mat-card-content>
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Cargando información del restaurante...</p>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<!-- Estado de error -->
+<div class="error-container" *ngIf="!restaurant && !isLoading">
+  <mat-card class="error-card">
+    <mat-card-content>
+      <mat-icon class="error-icon">error</mat-icon>
+      <h3>Restaurante no encontrado</h3>
+      <p>No pudimos encontrar la información de este restaurante.</p>
+      <button mat-raised-button color="primary" [routerLink]="['/restaurants']">
+        <mat-icon>arrow_back</mat-icon>
+        Volver a Restaurantes
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>

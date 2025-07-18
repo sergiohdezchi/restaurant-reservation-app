@@ -40,6 +40,12 @@ export interface Restaurant {
   districtName: string;
   pricePerPerson: number;
   capacity: number;
+  // Additional properties for UI
+  cuisine?: string;
+  rating?: number;
+  phone?: string;
+  description?: string;
+  imageUrl?: string;
 }
 
 // Pageable interface
